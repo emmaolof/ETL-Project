@@ -1,50 +1,74 @@
+ETL Project Final Report
 
-# Guidelines for ETL Project
 
-This document contains guidelines, requirements, and suggestions for Project 1.
+Brent Thomas
+Emmanuel Olofinkua
+Matt Houser
 
-## Team Effort
 
-Due to the short timeline, teamwork will be crucial to the success of this project! Work closely with your team through all phases of the project to ensure that there are no surprises at the end of the week.
-
-Working in a group enables you to tackle more difficult problems than you'd be able to working alone. In other words, working in a group allows you to **work smart** and **dream big**. Take advantage of it!
-
-## Project Proposal
-
-Before you start writing any code, remember that you only have one week to complete this project. View this project as a typical assignment from work. Imagine a bunch of data came in and you and your team are tasked with migrating it to a production data base.
-
-Take advantage of your Instructor and TA support during office hours and class project work time. They are a valuable resource and can help you stay on track.
-
-## Finding Data
-
-Your project must use 2 or more sources of data. We recommend the following sites to use as sources of data:
-
-* [data.world](https://data.world/)
-
-* [Kaggle](https://www.kaggle.com/)
-
-You can also use APIs or data scraped from the web. However, get approval from your instructor first. Again, there is only a week to complete this!
-
-## Data Cleanup & Analysis
-
-Once you have identified your datasets, perform ETL on the data. Make sure to plan and document the following:
-
-* The sources of data that you will extract from.
-
-* The type of transformation needed for this data (cleaning, joining, filtering, aggregating, etc).
-
-* The type of final production database to load the data into (relational or non-relational).
-
-* The final tables or collections that will be used in the production database.
-
-You will be required to submit a final technical report with the above information and steps required to reproduce your ETL process.
-
-## Project Report
-
-At the end of the week, your team will submit a Final Report that describes the following:
+February, 29 2020
 
 * **E**xtract: your original data sources and how the data was formatted (CSV, JSON, pgAdmin 4, etc).
 
 * **T**ransform: what data cleaning or transformation was required.
 
 * **L**oad: the final database, tables/collections, and why this was chosen.
+
+
+Extract
+For this project we are asked to create and perform ETL successfully on multiple sources of data. We did this by extracted data from two separate websites, bleacherreport.com and USAtoday.com.  These websites contained articles that discussed the all-time NFL draft picks, more specifically the best and worst picks for each team. The bleacher report article discussed first round picks only while the USA today article included all rounds.
+
+Each team’s best and worst NFL draft picks (1st round only)
+https://bleacherreport.com/articles/2767040-every-nfl-teams-best-and-worst-1st-round-draft-pick-of-the-super-bowl-era#slide4
+
+Each team’s best and worst NFL draft picks (all rounds)
+https://ftw.usatoday.com/2018/04/nfl-best-worst-picks-team
+
+
+
+
+Transform
+To clean and transform our datasets, within Jupyter Notebook we first created a path to open chrome driver and defined the URL. We then used find.all to display all the paragraphs, titles, and headers within each article for reference. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Using a for-loop we were able to print these references to narrow down results. We then used the import re (regular expression) function to include only the teams with their corresponding best and worst draft picks. After this, we ran an additional for-loop that would loop through all three pieces of data (team, best pick, worst pick) and separate them for loading purposes.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+When scraping the Bleacher Report article, we came across an issue with a blank string interrupting the data, causing an extra space between players and throwing the data set off.  We needed to filter the blank lines out that were occurring around when there was a break in the html.
+
+Load
+After we scraped our web pages and loaded them into the data frames, we created a local connection to mongoDB and loaded both collections to our NFL_Best_Worst_db in Mongo. 
+
+
+
+
+
